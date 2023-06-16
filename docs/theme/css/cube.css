@@ -1,0 +1,64 @@
+.wp_cube__container {
+    width: 180px;
+    height: 180px;
+    padding-left: 150px;
+    padding-top: 50px;
+}
+
+.wp_splash-viz__cube {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1;
+}
+
+.wp_cube {
+    position: relative;
+    display: block;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform: rotateX(-33.5deg) rotateY(45deg);
+    transform: rotateX(-33.5deg) rotateY(45deg);
+    width: 120px;
+    padding-bottom: 60px;
+}
+
+.wp_cube__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
+}
+
+.wp_cube__inner, .wp_cube__outer {
+    display: inline-block;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform 1000ms;
+    transition: -webkit-transform 1000ms;
+    transition: transform 1000ms;
+    transition: transform 1000ms, -webkit-transform 1000ms;
+}
+
+.wp_cube .wp_cube__outer .wp_cube__face {
+    background: rgba(141, 214, 249, 0.5);
+    -webkit-transition: border-width 0.2s;
+    transition: border-width 0.2s;
+    -webkit-transition-delay: 0.2s;
+    transition-delay: 0.2s;
+}
+
+.wp_cube__inner {
+    position: absolute;
+    top: -2px;
+    left: 0;
+}
+
+.wp_cube .wp_cube__inner .wp_cube__face {
+    background: #175d96;
+    border: 2px solid #ffffff;
+}

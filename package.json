@@ -1,0 +1,34 @@
+{
+  "name": "havesome-rust",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "(cd docs && reveal-md Presentation.md -w --theme theme/css/custom.css)",
+    "build": "(cd docs && reveal-md Presentation.md --static --theme theme/css/custom.css)",
+    "clean": "rimraf docs/_static",
+    "deploy": "npm run clean && cd docs && npm run build && ls && npm run copyAssets && npm run surge",
+    "copyAssets": "cp -R docs/imgs docs/_static/ && cp -R docs/theme docs/_static",
+    "surge": "surge -d $npm_package_config_deploy_domain -p docs/_static"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zacaria/havesome-rust.git"
+  },
+  "author": "Zacaria",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Zacaria/havesome-rust/issues"
+  },
+  "homepage": "https://github.com/Zacaria/havesome-rust#readme",
+  "dependencies": {
+    "reveal-md": "5.5.0"
+  },
+  "config": {
+    "deploy_domain": "havesome-rust.surge.sh"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.1",
+    "surge": "^0.23.1"
+  }
+}
