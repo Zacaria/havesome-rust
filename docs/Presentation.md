@@ -405,11 +405,11 @@ On aurait carrément pu ne pas mettre de try catch
 ### On n'a pas abordé
 
 Plein de choses dont :
-- Traits: genre d'interfaces
+- Traits: interfaces en plus flexibles <!-- .element: class="fragment" data-fragment-index="1" -->
 
-- Macros: metaprogramming
+- Macros: metaprogramming <!-- .element: class="fragment" data-fragment-index="2" -->
  
-- Mode unsafe: t'inquiète je gère
+- Mode unsafe: t'inquiète je gère  <!-- .element: class="fragment" data-fragment-index="3" -->
 
 note:
 
@@ -419,32 +419,6 @@ les traits sont plus flexibles
 - peuvent être passé en paramètre
 
 ---
-<!--
-## Traits ?
-
-
----
-
-## Macros ?
-
----
-
-## Unsafe mode ?
-
-
----
-
-## REX ?
-
-
-- Passer des arguments
-
-- Borrow checker
-
-- closures
-
--->
-
 
 ## Getting Started
 
@@ -459,11 +433,25 @@ les traits sont plus flexibles
 ## Ouvrir un projet
 
 cargo init
-expliquer le cargo.toml
+expliquer le cargo.toml et les features
+
 tests
 macros
 messages d'erreur
 
+---
+
+## Tips
+
+`println!("obj = {:?}", obj);`
+
+`expect("reason")` au lieu de `unwrap()`
+
+`todo!()`
+
+modéliser avant de coder
+
+ChatGPT 😎
 
 ---
 
@@ -492,20 +480,6 @@ Json parse: [serde](https://github.com/serde-rs/serde)
 String parse: [nom](https://github.com/rust-bakery/nom)
 
 Asynchrone: [tokio](https://github.com/tokio-rs/tokio)
-
----
-
-## Tips
-
-`println!("obj = {:?}", obj);`
-
-`expect("reason")` au lieu de `unwrap()`
-
-`todo!()`
-
-modéliser avant de coder
-
-ChatGPT 😎
 
 ---
 
