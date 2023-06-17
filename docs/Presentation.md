@@ -11,28 +11,64 @@ revealOptions:
 ClubMed - Zacaria Chtatar - Juin 2023
 
 ---
+
+## Quelques projets
+
+---
+### Github: [Index de recherche de code](https://github.blog/2023-02-06-the-technology-behind-githubs-new-code-search/)
+
+45 millions de repos à indexer :
+- plusieurs mois avec Elasticsearch
+- 18h en Rust
+
+----
+
+### Clouflare: [HTTP proxy](https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/)
+
+- nginx plus assez rapide
+
+- customisation en C difficile
+
+- archi qui permet de partager les connexions entre les threads
+
+= 160x moins de connexions aux origins
+
+----
+
+### Discord: [Service de messages lus](https://discord.com/blog/why-discord-is-switching-from-go-to-rust)
+
+- Accès à chaque connexion, envoi de message, lecture...
+
+- Cache de plusieurs milliards d'entrées
+
+- latences régulières en Go à cause du GC
+
+<img src="imgs/discord_rex.png" style="height: 250px">
+
+
+----
+
+Linux: [Kernel](https://linux.developpez.com/actu/337316/Rust-for-Linux-est-officiellement-fusionne-le-support-initial-de-Rust-for-Linux-fournit-l-infrastructure-de-base-et-une-integration-elementaire/)
+
+---
 ## Pourquoi
 
-Scalabilité du code
+Scalabilité
 
 - espace
 - temps
 - fonctionnalité
 - sécurité
 
----
+note:
 
-### De gros projets
+Les enjeux des logiciels qu'on dev sont de plus en plus complexes.
 
-Github: [Index de recherche de code](https://github.blog/2023-02-06-the-technology-behind-githubs-new-code-search/)
+espace: empreinte mémoire
+temps: vitesse d'execution, démarrage
+fonctionnalité: quantité de fonctionnalité, il faut pouvoir refacto
+sécurité: quantité de bugs possible augmente, et chaque faille ou bug peut coûter des millions
 
-Clouflare: [Proxy framework(vs Nginx)](https://blog.cloudflare.com/introducing-oxy/)
-
-Discord: [Messages lus](https://discord.com/blog/why-discord-is-switching-from-go-to-rust)
-
-Linux: [Kernel](https://linux.developpez.com/actu/337316/Rust-for-Linux-est-officiellement-fusionne-le-support-initial-de-Rust-for-Linux-fournit-l-infrastructure-de-base-et-une-integration-elementaire/)
-
----
 
 Rapidité
 
@@ -43,6 +79,7 @@ Productivité
 Concurrence
 
 ---
+
 ## A noter 
 
 - forte courbe d'apprentissage (au début)
