@@ -43,17 +43,6 @@ Productivité
 Concurrence
 
 ---
-
-<!--
-
-## Contexte
-
-- 8 ans
-- release stable toutes les 6 semaines
-
--->
-
----
 ## A noter 
 
 - forte courbe d'apprentissage (au début)
@@ -82,37 +71,6 @@ surtout des dev C experimentés
 - Plus facile pour eux que pour des devs JS 
 
 ---
-
-<!--
-# Aujourd'hui
-
-----
-# Demain
-
----
-
-ma Vision
-
----
-
-# Who
-
-Developpeurs C
-
-Projets critiques
-
--->
-
----
-## What
-
-Ownership
-
-
-Compilateur
-
-----
-
 ## Data types
 
 ```rust
@@ -198,7 +156,41 @@ fn change(s: &mut String) {
     s.push_str(", world");
 }
 ```
+---
 
+### Le compilateur ❤️
+
+```rust
+fn say(message: &str) {
+    println!(message);
+}
+
+fn main() {
+    let message = "hey";
+    say(message);
+}
+```
+
+<img src="imgs/erreur_compilateur_1.png">
+
+----
+
+```rust
+
+fn say(message: String) {
+    println!("{}", message);
+}
+
+fn main() {
+    let message = String::from("hey");
+    say(message);
+    say(message);
+}
+````
+
+<img src="imgs/erreur_compilateur_2.png">
+
+---
 ---
 
 ## Tuples
@@ -406,9 +398,8 @@ On aurait carrément pu ne pas mettre de try catch
 
 Plein de choses dont :
 - Traits: interfaces en plus flexibles <!-- .element: class="fragment" data-fragment-index="1" -->
-
 - Macros: metaprogramming <!-- .element: class="fragment" data-fragment-index="2" -->
- 
+
 - Mode unsafe: t'inquiète je gère  <!-- .element: class="fragment" data-fragment-index="3" -->
 
 note:
@@ -432,8 +423,10 @@ les traits sont plus flexibles
 
 ## Ouvrir un projet
 
+note:
+
 cargo init
-expliquer le cargo.toml et les features
+expliquer le cargo.toml et les features [serde](https://github.com/serde-rs/serde/blob/master/serde/Cargo.toml)
 
 tests
 macros
@@ -493,7 +486,10 @@ Asynchrone: [tokio](https://github.com/tokio-rs/tokio)
 
 ---
 
-# Merci
+### Merci
+
+<img src="imgs/crab2.png" style="height: 30vh">
+
 
 ---
 
