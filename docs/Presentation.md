@@ -801,6 +801,7 @@ Si eux même tous les champs de la struct implémente le tait Debug, alors on pe
 
 Plein de choses dont :
 
+- iterateurs, map, reduce...
 - Smart-pointers
 - Mode unsafe
 - Lifetimes
