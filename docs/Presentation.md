@@ -166,6 +166,8 @@ let crray = [3; 5]; // [3, 3, 3, 3, 3]
 
 note:
 
+assignement est immutable par défaut
+
 ----
 
 ### Fonctions
@@ -187,7 +189,119 @@ type dans les arguments et retour
 executables: on part d'un main comme en C
 on omet le ; pour retourner une valeur
 
+---
+
+### Ownership
+
+- Un seul propriétaire de la donnée
+
+- Plusieurs lecteur ou un seul éditeur
+
+=> Mémoire libérée dès que le propriétaire est hors scope
+
+note:
+pas de pause
+pas de GC
+pas de référence vers rien, pas de undefined
+
 ----
+
+#### move
+
+```rust
+let s1 = String::from("hello");
+let s2 = s1; // s1 is moved into s2.
+println!("{}", s1); // Error! s1's value has been moved to s2.
+println!("{}", s2); // OK and moved into println!
+println!("{}", s2); // Error! s2 moved
+
+let s3 = s2.clone(); // s3 is unrelated to s2
+println!("{}", &s3); // OK and still in scope
+println!("{}", &s3); // OK and still in scope
+
+```
+
+note:
+A noter que là on move aussi les variables dans les println!
+
+----
+#### immutable borrow
+
+```rust
+let s1: String = String::from("hello");
+let s2: &String = &s1; // s3 has an immutable reference to s2 : immutable borrow
+
+let len = calculate_length(&s1); // Immutable borrow happens successfully
+s1.push_str(", world"); // Error! s1 has been borrowed as immutable.
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+```
+
+<img src="imgs/push_str.png" style="height: 70px"> <!-- .element: class="fragment" data-fragment-index="5" -->
+
+<blockquote class="fragment" data-fragment-index="6"> On touche avec les yeux 👀 </blockquote>
+
+note:
+
+Si on ne veut pas que calculate_length prenne la possession de si
+
+Il faut lui donner une référence
+
+Deux références en même temps à s1 : s2 et celle donnée à calculate_length
+
+[push_str](https://doc.rust-lang.org/std/string/struct.String.html#method.push_str) requiert un mutable borrow
+
+----
+#### mutable borrow
+
+```rust
+    let mut s1 = String::from("hello");
+    let r1 = &mut s1;
+    r1.push_str(", world"); // Mutable borrow happens successfully
+
+    let r2 = &mut s1;
+    r2.push_str(", world"); // Mutable borrow happens successfully
+    
+    println!("{}", r1); // r1 is still on scope 
+    println!("{}", r2);
+```
+<img src="imgs/erreur_compilateur_3.png">
+
+----
+#### mutable borrow
+
+<span class="fragment" data-fragment-index="1">
+
+```rust
+let mut s1 = String::from("hello");
+change(&mut s1);
+change(&mut s1);
+
+fn change(s: &mut String) {
+    s.push_str(", world");
+}
+
+println!("{}", s1); // hello, world, world
+```
+</span>
+
+<p class="fragment" data-fragment-index="6"> chacun son tour 👮‍♂️ </p>
+
+note:
+
+La référence sort du scope a chaque de fin de change
+Donc on peut tranquillement les appeler à la suite
+
+----
+
+#### Garanties:
+
+- les référencent pointent vers quelque chose
+- accès concurrents sécurisés
+
+---
 
 ### if et for
 
@@ -205,6 +319,10 @@ fn main() {
     println!("LIFTOFF!!!");
 }
 ```
+
+.. : range
+
+for peut prendre n'importe quel enumerable
 
 ----
 
@@ -247,92 +365,6 @@ String permet les mutations et l'ownership, parfait pour retourner des strings.
 mut: toutes les assignations immutables par défaut. Même en profondeur dans les objets.
 
 toutes les strings sont utf8 par défaut
-
----
-
-### Ownership
-
-- Un seul propriétaire de la donnée
-
-- Plusieurs lecteur ou un seul éditeur
-
-- Mémoire libérée dès que le propriétaire est hors scope
-
-note:
-pas de pause
-pas de GC
-pas de référence vers rien
-
-----
-
-#### move
-
-```rust
-let s1: String = String::from("hello");
-let s2: String = s1; // s1 is moved into s2.
-let s3: String = s2.clone(); // s3 is unrelated to s2
-println!("{}", s1); // Error! s1's value has been moved to s2.
-println!("{}", s2); // OK
-println!("{}", s3); // OK
-```
-
-----
-#### immutable borrow
-
-```rust
-let s1 = String::from("hello");
-let s2: &String = &s1; // s3 has an immutable reference to s2 : immutable borrow
-
-let len = calculate_length(&s1); // Immutable borrow happens successfully
-s1.push_str(", world"); // Error! s1 has been borrowed as immutable.
-
-fn calculate_length(s: &String) -> usize {
-    s.len()
-}
-```
-
-<img src="imgs/push_str.png" style="height: 70px"> <!-- .element: class="fragment" data-fragment-index="5" -->
-
-<blockquote class="fragment" data-fragment-index="6"> On touche avec les yeux 👀 </blockquote>
-
-note:
-
-[push_str](https://doc.rust-lang.org/std/string/struct.String.html#method.push_str) requiert un mutable borrow
-
-----
-#### mutable borrow
-
-```rust
-let mut s1 = String::from("hello");
-let r1 = &mut s1;
-let r2 = &mut s1; // Error! Cannot borrow `s1` as mutable more than once.
-```
-----
-#### mutable borrow
-
-<span class="fragment" data-fragment-index="1">
-
-```rust
-let mut s1 = String::from("hello");
-change(&mut s1);
-change(&mut s1);
-
-fn change(s: &mut String) {
-    s.push_str(", world");
-}
-
-println!("{}", s1); // hello, world, world
-```
-</span>
-
-<p class="fragment" data-fragment-index="6"> chacun son tour 👮‍♂️ </p>
-
-----
-
-### Garanties:
-
-- les référencent pointent vers quelque chose
-- accès concurrents sécurisés
 
 ---
 
