@@ -1,8 +1,22 @@
----
-title: Rust Introduction
-revealOptions:
-    transition: 'fade'
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Rust Introduction</title>
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="./dist/reset.css" />
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/base16/zenburn.css" />
+
+    <link rel="stylesheet" href="./_assets/theme/css/custom.css" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
 >  Incorporate the expressive syntax and flexibility of a high-level language with the fine control and performance of a low-level language
 
 [<img src="imgs/rust-logo.png" alt="rust logo" class="r-stretch" style="height: 250px">](https://www.rust-lang.org/)
@@ -14,9 +28,7 @@ revealOptions:
 ClubMed - Zacaria Chtatar - Juin 2023
 
 https://github.com/Zacaria/havesome-rust
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Rust
 
 - bas niveau et haut niveau
@@ -26,16 +38,9 @@ https://github.com/Zacaria/havesome-rust
 - Soutenu par [Rust Foundation](https://foundation.rust-lang.org/)
 - langage le plus ❤️ depuis 7 ans
 
-note:
-
- 
-
----
-
+<aside class="notes"></aside></script></section><section ><section data-markdown><script type="text/template">
 ## Quelques projets
-
-----
-
+</script></section><section data-markdown><script type="text/template">
 ### Github: [Index de recherche de code](https://github.blog/2023-02-06-the-technology-behind-githubs-new-code-search/)
 
 <img src="imgs/github.png" style="background-color: whitesmoke; height: 250px">
@@ -45,9 +50,7 @@ note:
 
 - plusieurs mois avec Elasticsearch <!-- .element: class="fragment" data-fragment-index="2" -->
 - 18h en Rust <!-- .element: class="fragment" data-fragment-index="3" -->
-
-----
-
+</script></section><section data-markdown><script type="text/template">
 ### Clouflare: [HTTP proxy](https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/)
 
 <img src="imgs/cloudflare-logo.png" style="background-color: whitesmoke; height: 200px">
@@ -59,9 +62,7 @@ note:
 = 160x moins de connexions aux origins <!-- .element: class="fragment" data-fragment-index="4" -->
 
 = 434 ans de handshake en moins chaque jour <!-- .element: class="fragment" data-fragment-index="5" -->
-
-----
-
+</script></section><section data-markdown><script type="text/template">
 ### Discord: [Service de messages lus](https://discord.com/blog/why-discord-is-switching-from-go-to-rust)
 
 <img src="imgs/discord-logo.png" style="background-color: red; height: 100px">
@@ -73,26 +74,18 @@ note:
 
 <img src="imgs/discord_rex.png" style="height: 250px"> <!-- .element: class="fragment" data-fragment-index="4" -->
 
-note:
-
-Pas de GC
-Une variable est supprimée dès qu'elle n'a plus d'owner
-
-----
-
+<aside class="notes"><p>Pas de GC
+Une variable est supprimée dès qu&#39;elle n&#39;a plus d&#39;owner</p>
+</aside></script></section><section data-markdown><script type="text/template">
 Linux: [Le Kernel](https://linux.developpez.com/actu/337316/Rust-for-Linux-est-officiellement-fusionne-le-support-initial-de-Rust-for-Linux-fournit-l-infrastructure-de-base-et-une-integration-elementaire/)
 
 <img src="imgs/linus-logo.webp" style="height: 250px">
 
 - 2/3 des vulnérabilités viennent de la gestion mémoire
 - Kernel en C et Assembleur
-- Linus : le C++ c'est non
 - attirer de jeunes devs
 
-note:
-
----
-## Pourquoi
+<aside class="notes"></aside></script></section></section><section  data-markdown><script type="text/template">## Pourquoi
 
 Scalabilité
 
@@ -102,17 +95,12 @@ Scalabilité
 - concurrence
 - sécurité
 
-note:
-
-Les enjeux des logiciels qu'on dev sont de plus en plus complexes.
-
-espace: empreinte mémoire
-temps: vitesse d'execution, démarrage
+<aside class="notes"><p>Les enjeux des logiciels qu&#39;on dev sont de plus en plus complexes.</p>
+<p>espace: empreinte mémoire
+temps: vitesse d&#39;execution, démarrage
 fonctionnalité: quantité de fonctionnalité, il faut pouvoir refacto
-sécurité: quantité de bugs possible augmente, et chaque faille ou bug peut coûter des millions
-
----
-
+sécurité: quantité de bugs possible augmente, et chaque faille ou bug peut coûter des millions</p>
+</aside></script></section><section ><section data-markdown><script type="text/template">
 ### À noter 
 
 - temps de compilation
@@ -121,40 +109,30 @@ sécurité: quantité de bugs possible augmente, et chaque faille ou bug peut co
 
 - plus de devs que de missions
 
-note:
-
-on va survoler quelques features notables du langages
-
-le temps de compilation vient du compilateur qui garantis la sécurité de la memory safety
-
-peu de missions
-- Juste une question de temps, de plus en plus de projets démarrent en Rust
-
-ce serait facile d'attirer des devs
-
-surtout des dev C experimentés
-- Plus facile pour eux que pour des devs JS
-
-----
-
+<aside class="notes"><p>on va survoler quelques features notables du langages</p>
+<p>le temps de compilation vient du compilateur qui garantis la sécurité de la memory safety</p>
+<p>peu de missions</p>
+<ul>
+<li>Juste une question de temps, de plus en plus de projets démarrent en Rust</li>
+</ul>
+<p>ce serait facile d&#39;attirer des devs</p>
+<p>surtout des dev C experimentés</p>
+<ul>
+<li>Plus facile pour eux que pour des devs JS</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
 > In other languages simple things are easy and complex things are possible, in Rust simple things are possible and complex things are EASY.
 
 <img src="imgs/learning_curve.jpg" style="height:450px">
-
----
-
+</script></section></section><section  data-markdown><script type="text/template">
 ## Let's go !
 
 https://doc.rust-lang.org/book/
 
 https://doc.rust-lang.org/stable/rust-by-example/
 
-note:
-
-Je vais essayer de résumer quelques features afin d'arriver à ce qui donne vraiment de l'intérêt à Rust
-
----
-### Types
+<aside class="notes"><p>Je vais essayer de résumer quelques features afin d&#39;arriver à ce qui donne vraiment de l&#39;intérêt à Rust</p>
+</aside></script></section><section ><section data-markdown><script type="text/template">### Types
 
 ```rust
 let x: i32 = 42; // `i32` is a signed 32-bit integer
@@ -167,12 +145,8 @@ let brray: [i32; 5] = [1, 2, 3, 4, 5];
 let crray = [3; 5]; // [3, 3, 3, 3, 3]
 ```
 
-note:
-
-assignement est immutable par défaut
-
-----
-
+<aside class="notes"><p>assignement est immutable par défaut</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ### Fonctions
 
 ```rust
@@ -187,13 +161,10 @@ fn plus_one(x: i32) -> i32 {
 }
 ```
 
-note:
-type dans les arguments et retour
-executables: on part d'un main comme en C
-on omet le ; pour retourner une valeur
-
----
-
+<aside class="notes"><p>type dans les arguments et retour
+executables: on part d&#39;un main comme en C
+on omet le ; pour retourner une valeur</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template">
 ### Ownership
 
 - Un seul propriétaire de la donnée
@@ -202,13 +173,10 @@ on omet le ; pour retourner une valeur
 
 => Mémoire libérée dès que le propriétaire est hors scope
 
-note:
-pas de pause
+<aside class="notes"><p>pas de pause
 pas de GC
-pas de référence vers rien, pas de undefined
-
-----
-
+pas de référence vers rien, pas de undefined</p>
+</aside></script></section><section data-markdown><script type="text/template">
 #### move
 
 ```rust
@@ -224,11 +192,8 @@ println!("{}", &s3); // OK and still in scope
 
 ```
 
-note:
-A noter que là on move aussi les variables dans les println!
-
-----
-#### immutable borrow
+<aside class="notes"><p>A noter que là on move aussi les variables dans les println!</p>
+</aside></script></section><section data-markdown><script type="text/template">#### immutable borrow
 
 ```rust
 let s1: String = String::from("hello");
@@ -246,18 +211,11 @@ fn calculate_length(s: &String) -> usize {
 
 <blockquote class="fragment" data-fragment-index="6"> On touche avec les yeux 👀 </blockquote>
 
-note:
-
-Si on ne veut pas que calculate_length prenne la possession de si
-
-Il faut lui donner une référence
-
-Deux références en même temps à s1 : s2 et celle donnée à calculate_length
-
-[push_str](https://doc.rust-lang.org/std/string/struct.String.html#method.push_str) requiert un mutable borrow
-
-----
-#### mutable borrow
+<aside class="notes"><p>Si on ne veut pas que calculate_length prenne la possession de si</p>
+<p>Il faut lui donner une référence</p>
+<p>Deux références en même temps à s1 : s2 et celle donnée à calculate_length</p>
+<p><a href="https://doc.rust-lang.org/std/string/struct.String.html#method.push_str">push_str</a> requiert un mutable borrow</p>
+</aside></script></section><section data-markdown><script type="text/template">#### mutable borrow
 
 ```rust
     let mut s1 = String::from("hello");
@@ -271,9 +229,7 @@ Deux références en même temps à s1 : s2 et celle donnée à calculate_length
     println!("{}", r2);
 ```
 <img src="imgs/erreur_compilateur_3.png">
-
-----
-#### mutable borrow
+</script></section><section data-markdown><script type="text/template">#### mutable borrow
 
 <span class="fragment" data-fragment-index="1">
 
@@ -292,20 +248,14 @@ println!("{}", s1); // hello, world, world
 
 <p class="fragment" data-fragment-index="6"> chacun son tour 👮‍♂️ </p>
 
-note:
-
-La référence sort du scope a chaque de fin de change
-Donc on peut tranquillement les appeler à la suite
-
-----
-
+<aside class="notes"><p>La référence sort du scope a chaque de fin de change
+Donc on peut tranquillement les appeler à la suite</p>
+</aside></script></section><section data-markdown><script type="text/template">
 #### Garanties:
 
 - les référencent pointent vers quelque chose
 - accès concurrents sécurisés
-
----
-
+</script></section></section><section ><section data-markdown><script type="text/template">
 ### if et for
 
 ```rust
@@ -326,9 +276,7 @@ fn main() {
 .. : range
 
 for peut prendre n'importe quel enumerable
-
-----
-
+</script></section><section data-markdown><script type="text/template">
 ### Strings
 
 ```rust [7|11|15|16|]
@@ -352,25 +300,15 @@ fn main() {
 }
 ```
 
-note:
-le type à l'assignation peut être inféré
-
-&str est immutable, vit dans la stack
-
-String est mutable via des méthode, vit dans la heap
-
-changer une string: on doit déclarer la variable mutable avec `mut`
-
-&str est immutable, mieux pour les param de fonction : on peut prendre un slice d'une string sans en prendre l'ownership. Permet de passer String et literals.
-
-String permet les mutations et l'ownership, parfait pour retourner des strings.
-
-mut: toutes les assignations immutables par défaut. Même en profondeur dans les objets.
-
-toutes les strings sont utf8 par défaut
-
----
-
+<aside class="notes"><p>le type à l&#39;assignation peut être inféré</p>
+<p>&amp;str est immutable, vit dans la stack</p>
+<p>String est mutable via des méthode, vit dans la heap</p>
+<p>changer une string: on doit déclarer la variable mutable avec <code>mut</code></p>
+<p>&amp;str est immutable, mieux pour les param de fonction : on peut prendre un slice d&#39;une string sans en prendre l&#39;ownership. Permet de passer String et literals.</p>
+<p>String permet les mutations et l&#39;ownership, parfait pour retourner des strings.</p>
+<p>mut: toutes les assignations immutables par défaut. Même en profondeur dans les objets.</p>
+<p>toutes les strings sont utf8 par défaut</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template">
 ### Le compilateur ❤️
 
 <span class="fragment" data-fragment-index="1">
@@ -388,9 +326,7 @@ fn main() {
 </span>
 
 <img src="imgs/erreur_compilateur_1.png"> <!-- .element: class="fragment" data-fragment-index="2" -->
-
-----
-### Le compilateur ❤️
+</script></section><section data-markdown><script type="text/template">### Le compilateur ❤️
 
 <span class="fragment" data-fragment-index="1">
 
@@ -410,13 +346,9 @@ fn main() {
 </span>
 
 <img src="imgs/erreur_compilateur_2.png"> <!-- .element: class="fragment" data-fragment-index="2" -->
-
----
-
+</script></section></section><section ><section data-markdown><script type="text/template">
 ## Structures de données
-
-----
-
+</script></section><section data-markdown><script type="text/template">
 ### Tuples
 
 ```rust
@@ -429,12 +361,9 @@ fn main() {
 }
 ```
 
-note: 
-On groupe des données qu'on peut destructurer
-On utilise le tuple vide pour représenter le type void
-
-----
-
+<aside class="notes"><p>On groupe des données qu&#39;on peut destructurer
+On utilise le tuple vide pour représenter le type void</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ### Enums & Structs
 
 ```rust
@@ -454,11 +383,8 @@ let z = Number { value: 5, ..y };
 // l'ordre des propriétés n'est pas important
 ```
 
-note:
-
-```rust
-impl Number {
-    fn new(value: u32, positive: bool) -> Self {
+<aside class="notes"><pre><code class="language-rust">impl Number {
+    fn new(value: u32, positive: bool) -&gt; Self {
         let sign = if positive {
             Sign::PLUS
         } else {
@@ -471,11 +397,8 @@ impl Number {
 fn main() {
     let num = Number::new(10, true);
 }
-
-```
-
-----
-
+</code></pre>
+</aside></script></section><section data-markdown><script type="text/template">
 ```rust [1-4|5-14|]
 enum Sign {
     PLUS,
@@ -500,12 +423,8 @@ fn main () {
 }
 ```
 
-note:
-
-On peut déclarer des méthodes
-
-----
-
+<aside class="notes"><p>On peut déclarer des méthodes</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ```rust
 struct FakeCat {
     alive: bool,
@@ -531,13 +450,8 @@ enum RealCat {
 ```
 </span>
 
-note: 
-
-Dans les autres langages il faudrait implémenter des getters, setters et autres logiques pour protéger le système d'états incorrects
-
-
----
-
+<aside class="notes"><p>Dans les autres langages il faudrait implémenter des getters, setters et autres logiques pour protéger le système d&#39;états incorrects</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template">
 ### Comment représenter l'absence de données ?
 
 <span>`undefined` ? </span> <!-- .element: class="fragment" data-fragment-index="1" -->
@@ -546,13 +460,9 @@ Dans les autres langages il faudrait implémenter des getters, setters et autres
 
 Traiter ces cas reste optionnel<!-- .element: class="fragment" data-fragment-index="3" -->
 
-note:
-
-tester null en js
-
-```js
-typeof null          // "object" (not "null")
-typeof undefined     // "undefined"
+<aside class="notes"><p>tester null en js</p>
+<pre><code class="language-js">typeof null          // &quot;object&quot; (not &quot;null&quot;)
+typeof undefined     // &quot;undefined&quot;
 null === undefined   // false
 null  == undefined   // true
 null === null        // true
@@ -560,10 +470,8 @@ null  == null        // true
 !null                // true
 isNaN(1 + null)      // false
 isNaN(1 + undefined) // true
-```
-
-----
-
+</code></pre>
+</aside></script></section><section data-markdown><script type="text/template">
 ### Option
 
 => [doc](https://doc.rust-lang.org/std/option/enum.Option.html)
@@ -591,18 +499,14 @@ fn main() {
 }
 ```
 
-note:
-
-- Le compilateur s'assure qu'on couvre tous les cas !
-- explicite
-- force la gestion d'erreurs
-
-unwrap et expect ne doivent pas aller en production !
-
-unwrap_or ajoute une condition logique
-
----
-
+<aside class="notes"><ul>
+<li>Le compilateur s&#39;assure qu&#39;on couvre tous les cas !</li>
+<li>explicite</li>
+<li>force la gestion d&#39;erreurs</li>
+</ul>
+<p>unwrap et expect ne doivent pas aller en production !</p>
+<p>unwrap_or ajoute une condition logique</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template">
 
 ### Les erreurs
 
@@ -624,16 +528,11 @@ function fetchFile (file) {
 - ni le type d'erreur renvoyé <!-- .element: class="fragment" data-fragment-index="3" -->
 - on découvre les erreurs à l'execution <!-- .element: class="fragment" data-fragment-index="4" -->
 
-note:
-
-Rien ne dit que la fonction peut renvoyer une erreur.
-Et que l'appelenat doit la gérer
-On aurait carrément pu ne pas mettre de try catch
-
-Au moment de dev, on a peu de connaissance sur les erreurs possibles
-
-----
-### Result
+<aside class="notes"><p>Rien ne dit que la fonction peut renvoyer une erreur.
+Et que l&#39;appelenat doit la gérer
+On aurait carrément pu ne pas mettre de try catch</p>
+<p>Au moment de dev, on a peu de connaissance sur les erreurs possibles</p>
+</aside></script></section><section data-markdown><script type="text/template">### Result
 
 => [doc](https://doc.rust-lang.org/std/result/enum.Result.html)
 
@@ -662,18 +561,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-```
----
-
+```</script></section></section><section ><section data-markdown><script type="text/template">
 ### Traits : des interfaces en plus flexibles
 
 - définies n'importe où <!-- .element: class="fragment" data-fragment-index="1" -->
 - implémentation par défaut <!-- .element: class="fragment" data-fragment-index="2" -->
 - composition de traits <!-- .element: class="fragment" data-fragment-index="3" -->
 - peuvent être passé en paramètre <!-- .element: class="fragment" data-fragment-index="4" -->
-
-----
-
+</script></section><section data-markdown><script type="text/template">
 ```rust [1-3|8-12|23-29|]
 trait Printable {
     fn print(&self);
@@ -706,14 +601,9 @@ fn main() {
 }
 ```
 
-note:
-
-`let car: &dyn Printable = &Car { model: String::from("Tesla") };`
-`let car: Box<dyn Printable> = Box::new(Car { model: String::from("Tesla") });`
-
-
----
-
+<aside class="notes"><p><code>let car: &amp;dyn Printable = &amp;Car { model: String::from(&quot;Tesla&quot;) };</code>
+<code>let car: Box&lt;dyn Printable&gt; = Box::new(Car { model: String::from(&quot;Tesla&quot;) });</code></p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template">
 ### Tests unitaires
 
 ```rust [5-12|]
@@ -731,12 +621,8 @@ mod tests {
 }
 ```
 
-note:
-
-TUs dans le même fichier que le code
-
-----
-
+<aside class="notes"><p>TUs dans le même fichier que le code</p>
+</aside></script></section><section data-markdown><script type="text/template">
 ### Tests d'integration
 
 ```csharp
@@ -760,9 +646,7 @@ fn test_my_function_integration() {
     assert_eq!(my_function("test input"), "expected output");
 }
 ```
-
----
-
+</script></section></section><section ><section data-markdown><script type="text/template">
 ### Macros : metaprogramming
 
 - Génère du code source qui sera compilé
@@ -773,14 +657,13 @@ fn test_my_function_integration() {
 
 <span>`#[cfg(test)]` : compile les tests seulement en conf de test</span> <!-- .element: class="fragment" data-fragment-index="2" -->
 
-note:
-println! est une macro pour:
-- avoir un nombre variable d'arguments
-- string interpolation
-- checks à la compilation que le nombre d'arg == le nb de {}
-
-----
-
+<aside class="notes"><p>println! est une macro pour:</p>
+<ul>
+<li>avoir un nombre variable d&#39;arguments</li>
+<li>string interpolation</li>
+<li>checks à la compilation que le nombre d&#39;arg == le nb de {}</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template">
 ```rust [1-4|15-18|7-13|]
 #[derive(Debug)]
 struct Cat {
@@ -802,12 +685,8 @@ fn main() {
 }
 ```
 
-note:
-
-Si eux même tous les champs de la struct implémente le tait Debug, alors on peut derive sans action supplémentaire
-
----
-
+<aside class="notes"><p>Si eux même tous les champs de la struct implémente le tait Debug, alors on peut derive sans action supplémentaire</p>
+</aside></script></section></section><section  data-markdown><script type="text/template">
 ### On n'a pas abordé
 
 Plein de choses dont :
@@ -817,25 +696,22 @@ Plein de choses dont :
 - Lifetimes
 - Multi-thread
 
-note:
-
-les traits sont plus flexibles
-- méthodes par défaut
-- composition de traits
-- peuvent être passé en paramètre
-
-lifetime précise la durée de vie des références
-
-smart pointers: types that wrap around a value and provide additional capabilities.
-more flexible memory management, shared ownership, and safe mutation of data.
-
-- Box<T>: heap allocation & automatic deallocation.
-- Rc<T>: reference-counted smart pointer that allows multiple ownership of the same data.
-- Arc<T>: atomic reference-counted smart pointer, similar to Rc<T>, but with thread-safe atomic operations.
-- RefCell<T>: smart pointer that enables interior mutability, allowing mutable access even with immutable references.
-
----
-
+<aside class="notes"><p>les traits sont plus flexibles</p>
+<ul>
+<li>méthodes par défaut</li>
+<li>composition de traits</li>
+<li>peuvent être passé en paramètre</li>
+</ul>
+<p>lifetime précise la durée de vie des références</p>
+<p>smart pointers: types that wrap around a value and provide additional capabilities.
+more flexible memory management, shared ownership, and safe mutation of data.</p>
+<ul>
+<li>Box<T>: heap allocation &amp; automatic deallocation.</li>
+<li>Rc<T>: reference-counted smart pointer that allows multiple ownership of the same data.</li>
+<li>Arc<T>: atomic reference-counted smart pointer, similar to Rc<T>, but with thread-safe atomic operations.</li>
+<li>RefCell<T>: smart pointer that enables interior mutability, allowing mutable access even with immutable references.</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
 ## Getting Started
 
 cargo: [rustup.rs](https://rustup.rs/)
@@ -843,9 +719,7 @@ cargo: [rustup.rs](https://rustup.rs/)
 [rust analyzer](https://rust-analyzer.github.io/)
 
 background rust code checker: [<img src="imgs/bacon.svg" style="background-color:whitesmoke;height: 50px; margin:0">](https://docs.rs/crate/bacon/latest)
-
----
-
+</script></section><section ><section data-markdown><script type="text/template">
 ### Cargo
 
 ```sh
@@ -875,11 +749,9 @@ serde = version="1.0.132"
 uuid = { version = "0.8", features = ["v4"] }
 ```
 
-note:
-Les crates en dépendances ne tirent pas par défaut toutes les fonctionnalités
-Il faut regarder dans leur doc ou Cargo.toml, les fonctionnalités à importer en plus
-----
-
+<aside class="notes"><p>Les crates en dépendances ne tirent pas par défaut toutes les fonctionnalités
+Il faut regarder dans leur doc ou Cargo.toml, les fonctionnalités à importer en plus</p>
+</aside></script></section><section data-markdown><script type="text/template">
 #### Cargo
 
 - `cargo test`
@@ -887,9 +759,7 @@ Il faut regarder dans leur doc ou Cargo.toml, les fonctionnalités à importer e
 - `cargo check`
 - `cargo package`
 - `cargo publish`
-
-----
-
+</script></section><section data-markdown><script type="text/template">
 #### Cargo
 
 ```rust
@@ -906,16 +776,12 @@ pub fn sum_as_string(a: i32, b: i32) -> String { (a + b).to_string() }
 
 `cargo doc --open`
 
-note:
-
-exemple d'un doc test.
+<aside class="notes"><p>exemple d&#39;un doc test.
 coverage
 executé pendant les tests
 garde les exemples à jour
-seulement pour les modules ou les libs
-
----
-
+seulement pour les modules ou les libs</p>
+</aside></script></section></section><section  data-markdown><script type="text/template">
 ## Tips
 
 `todo!()` <!-- .element: class="fragment" data-fragment-index="1" -->
@@ -926,15 +792,13 @@ De bonnes enums et structs résolvent pas ma de problèmes <!-- .element: class=
 
 ChatGPT 😎 <!-- .element: class="fragment" data-fragment-index="4" -->
 
-note:
-
-println! est une macro pour:
-- avoir un nombre variable d'arguments
-- string interpolation
-- checks à la compilation que le nombre d'arg == le nb de {}
-
----
-
+<aside class="notes"><p>println! est une macro pour:</p>
+<ul>
+<li>avoir un nombre variable d&#39;arguments</li>
+<li>string interpolation</li>
+<li>checks à la compilation que le nombre d&#39;arg == le nb de {}</li>
+</ul>
+</aside></script></section><section ><section data-markdown><script type="text/template">
 # Next
 
 HTTP: [reqwest](https://github.com/seanmonstar/reqwest)
@@ -950,9 +814,7 @@ Client lourd: [tauri](https://github.com/tauri-apps/tauri)
 Jeux: [bevy](https://bevyengine.org/)
 
 CLI: [clap](https://github.com/clap-rs/clap)
-
-----
-
+</script></section><section data-markdown><script type="text/template">
 ## Super crates
 
 Json parse: [serde](https://github.com/serde-rs/serde)
@@ -960,9 +822,7 @@ Json parse: [serde](https://github.com/serde-rs/serde)
 String parse: [nom](https://github.com/rust-bakery/nom)
 
 Asynchrone: [tokio](https://github.com/tokio-rs/tokio)
-
----
-
+</script></section></section><section  data-markdown><script type="text/template">
 # Liens
 
 - [Rust book](https://doc.rust-lang.org/book/)
@@ -971,11 +831,60 @@ Asynchrone: [tokio](https://github.com/tokio-rs/tokio)
 - [fasterthanlime - A half-hour to learn Rust](https://fasterthanli.me/articles/a-half-hour-to-learn-rust)
 - [Noboilerplate - Youtube](https://www.youtube.com/c/NoBoilerplate)
 - [Code to the moon - Youtube](https://www.youtube.com/@codetothemoon/videos)
-
----
-
+</script></section><section  data-markdown><script type="text/template">
 ### Merci
 
 <img src="imgs/crab2.png" style="height: 30vh">
+</script></section><section  data-markdown><script type="text/template"></script></section></div>
+    </div>
 
----
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        slideNumber: true,
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"transition":"fade"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

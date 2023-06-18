@@ -1,0 +1,20 @@
+@import url(night.css);
+@import url(lib/font-awesome-4.7.0/css/font-awesome.min.css);
+@import url(cube.css);
+
+.reveal {
+    font-size: 30px;
+    /* font-family: "Source Sans Pro"; */
+}
+
+.reveal .slides>section {
+    perspective: none;
+}
+
+.reveal pre {
+    font-size: 0.50em;
+}
+
+.reveal pre code {
+    max-height: 400px;
+}
