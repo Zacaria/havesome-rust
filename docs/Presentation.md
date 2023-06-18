@@ -3,32 +3,27 @@ title: Rust Introduction
 revealOptions:
     transition: 'fade'
 ---
->  Incorporate the expressive syntax and flexibility of a high-level language with the fine control and performance of a low-level language
 
-[<img src="imgs/rust-logo.png" alt="rust logo" class="r-stretch" style="height: 250px">](https://www.rust-lang.org/)
+[<img src="imgs/rust-logo.png" alt="rust logo" style="height: 200px">](https://www.rust-lang.org/)
 
-
-<br>
 <br>
 
 ClubMed - Zacaria Chtatar - Juin 2023
 
-https://github.com/Zacaria/havesome-rust
+https://havesome-rust.surge.sh
 
 ---
 
 ### Rust
 
-- bas niveau et haut niveau
-- compilateur développé en OCaml puis en Rust
-- release stable toutes les 6 semaines
-- Développé par [Rust Teams & Working Groups](https://www.rust-lang.org/governance/)
-- Soutenu par [Rust Foundation](https://foundation.rust-lang.org/)
-- langage le plus ❤️ depuis 7 ans
+- bas niveau et haut niveau <!-- .element: class="fragment" data-fragment-index="1" -->
+- compilateur développé en OCaml puis en Rust <!-- .element: class="fragment" data-fragment-index="2" -->
+- release stable toutes les 6 semaines <!-- .element: class="fragment" data-fragment-index="3" -->
+<li class="fragment" data-fragment-index="4"> Développé par <a href="https://www.rust-lang.org/governance/">Rust Teams & Working Groups</a></li>
+<li class="fragment" data-fragment-index="5">Soutenu par <a href="https://foundation.rust-lang.org/">Rust Foundation</a></li>
+- langage le plus ❤️ depuis 7 ans <!-- .element: class="fragment" data-fragment-index="6" -->
 
 note:
-
- 
 
 ---
 
@@ -38,7 +33,7 @@ note:
 
 ### Github: [Index de recherche de code](https://github.blog/2023-02-06-the-technology-behind-githubs-new-code-search/)
 
-<img src="imgs/github.png" style="background-color: whitesmoke; height: 250px">
+<img src="imgs/github.png" style="background-color: whitesmoke; height: 150px">
 
 
 45 millions de repos à indexer : <!-- .element: class="fragment" data-fragment-index="1" -->
@@ -50,7 +45,7 @@ note:
 
 ### Clouflare: [HTTP proxy](https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/)
 
-<img src="imgs/cloudflare-logo.png" style="background-color: whitesmoke; height: 200px">
+<img src="imgs/cloudflare-logo.png" style="background-color: whitesmoke; height: 150px">
 
 - nginx plus assez rapide 🤯 <!-- .element: class="fragment" data-fragment-index="1" -->
 - customisation en C difficile <!-- .element: class="fragment" data-fragment-index="2" -->
@@ -62,9 +57,9 @@ note:
 
 ----
 
-### Discord: [Service de messages lus](https://discord.com/blog/why-discord-is-switching-from-go-to-rust)
+#### Discord: [Service de messages lus](https://discord.com/blog/why-discord-is-switching-from-go-to-rust)
 
-<img src="imgs/discord-logo.png" style="background-color: red; height: 100px">
+<img src="imgs/discord-logo.png" style="background-color: red; height: 70px">
 
 
 - Cache de plusieurs milliards d'entrées <!-- .element: class="fragment" data-fragment-index="1" -->
@@ -84,17 +79,21 @@ Linux: [Le Kernel](https://linux.developpez.com/actu/337316/Rust-for-Linux-est-o
 
 <img src="imgs/linus-logo.webp" style="height: 250px">
 
-- 2/3 des vulnérabilités viennent de la gestion mémoire
-- Kernel en C et Assembleur
-- Linus : le C++ c'est non
-- attirer de jeunes devs
+- 2/3 des vulnérabilités viennent de la gestion mémoire <!-- .element: class="fragment" data-fragment-index="1" -->
+- Kernel en C et Assembleur <!-- .element: class="fragment" data-fragment-index="2" -->
+- Linus : le C++ c'est non <!-- .element: class="fragment" data-fragment-index="3" -->
+- attirer de jeunes devs <!-- .element: class="fragment" data-fragment-index="4" -->
 
 note:
 
 ---
-## Pourquoi
+## Scalabilité
 
-Scalabilité
+<img src="imgs/comparison.png" style="height: 450px">
+
+note:
+
+Les enjeux des logiciels qu'on dev sont de plus en plus complexes.
 
 - espace
 - temps
@@ -102,14 +101,12 @@ Scalabilité
 - concurrence
 - sécurité
 
-note:
-
-Les enjeux des logiciels qu'on dev sont de plus en plus complexes.
-
 espace: empreinte mémoire
 temps: vitesse d'execution, démarrage
 fonctionnalité: quantité de fonctionnalité, il faut pouvoir refacto
 sécurité: quantité de bugs possible augmente, et chaque faille ou bug peut coûter des millions
+
+Beaucoup moins cher de faire tourner du rust sur aws
 
 ---
 
@@ -123,17 +120,12 @@ sécurité: quantité de bugs possible augmente, et chaque faille ou bug peut co
 
 note:
 
-on va survoler quelques features notables du langages
-
 le temps de compilation vient du compilateur qui garantis la sécurité de la memory safety
 
 peu de missions
 - Juste une question de temps, de plus en plus de projets démarrent en Rust
 
 ce serait facile d'attirer des devs
-
-surtout des dev C experimentés
-- Plus facile pour eux que pour des devs JS
 
 ----
 
@@ -196,11 +188,11 @@ on omet le ; pour retourner une valeur
 
 ### Ownership
 
-- Un seul propriétaire de la donnée
+- Un seul propriétaire de la donnée <!-- .element: class="fragment" data-fragment-index="1" -->
 
-- Plusieurs lecteur ou un seul éditeur
+- Plusieurs lecteur ou un seul éditeur <!-- .element: class="fragment" data-fragment-index="2" -->
 
-=> Mémoire libérée dès que le propriétaire est hors scope
+=> Mémoire libérée dès que le propriétaire est hors scope <!-- .element: class="fragment" data-fragment-index="3" -->
 
 note:
 pas de pause
@@ -231,7 +223,7 @@ A noter que là on move aussi les variables dans les println!
 #### immutable borrow
 
 ```rust
-let s1: String = String::from("hello");
+let s1 = String::from("hello");
 let s2: &String = &s1; // s3 has an immutable reference to s2 : immutable borrow
 
 let len = calculate_length(&s1); // Immutable borrow happens successfully
@@ -270,7 +262,7 @@ Deux références en même temps à s1 : s2 et celle donnée à calculate_length
     println!("{}", r1); // r1 is still on scope 
     println!("{}", r2);
 ```
-<img src="imgs/erreur_compilateur_3.png">
+<img src="imgs/erreur_compilateur_3.png"> <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 #### mutable borrow
@@ -395,7 +387,6 @@ fn main() {
 <span class="fragment" data-fragment-index="1">
 
 ```rust
-
 fn say(message: String) {
     println!("{}", message);
 }
@@ -406,10 +397,9 @@ fn main() {
     say(message);
 }
 ```
-
 </span>
 
-<img src="imgs/erreur_compilateur_2.png"> <!-- .element: class="fragment" data-fragment-index="2" -->
+<img src="imgs/erreur_compilateur_2.png" style="height: 300px"> <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ---
 
@@ -446,7 +436,6 @@ struct Number {
     sign: Sign, // les structs peuvent contenir des enums
     value: u32,
 }
-
 // On peut les initialiser en literal
 let x = Number { sign: Sign::PLUS, value: 2 };
 let y = Number { value: 3, sign: Sign::MINUS };
@@ -490,7 +479,6 @@ impl Number {
         self.value % 2 == 0
     }
 }
-
 fn main () {
     let minus_two = Number {
         sign: Sign::MINUS,
@@ -544,7 +532,7 @@ Dans les autres langages il faudrait implémenter des getters, setters et autres
 
 <span>`null` ? </span><!-- .element: class="fragment" data-fragment-index="2" -->
 
-Traiter ces cas reste optionnel<!-- .element: class="fragment" data-fragment-index="3" -->
+Traiter ces cas reste optionnel ⚠️<!-- .element: class="fragment" data-fragment-index="3" -->
 
 note:
 
@@ -568,14 +556,13 @@ isNaN(1 + undefined) // true
 
 => [doc](https://doc.rust-lang.org/std/option/enum.Option.html)
 
-```rust [1-6|9|11-14|17-19]
+```rust [1-6|8|10-13|16-18]
 fn yes_or_no(value: i32) -> Option<i32> {
     if value == 0 {
         return None;
     }
     Some(value)
 }
-
 fn main() {
     let possibly_a_number = yes_or_no(12);
 
@@ -771,7 +758,9 @@ fn test_my_function_integration() {
 
 <span>`println!` : fonction variadique </span><!-- .element: class="fragment" data-fragment-index="1" -->
 
-<span>`#[cfg(test)]` : compile les tests seulement en conf de test</span> <!-- .element: class="fragment" data-fragment-index="2" -->
+<span>`todo!` : faire taire le compilateur</span> <!-- .element: class="fragment" data-fragment-index="2" -->
+
+<span>`#[cfg(test)]` : compile les tests seulement en conf de test</span> <!-- .element: class="fragment" data-fragment-index="3" -->
 
 note:
 println! est une macro pour:
@@ -892,7 +881,7 @@ Il faut regarder dans leur doc ou Cargo.toml, les fonctionnalités à importer e
 
 #### Cargo
 
-```rust
+```rust [|6-7|]
 /// Formats the sum of two numbers as a string.
 ///
 /// # Examples
@@ -918,13 +907,11 @@ seulement pour les modules ou les libs
 
 ## Tips
 
-`todo!()` <!-- .element: class="fragment" data-fragment-index="1" -->
+Bien penser à modéliser <!-- .element: class="fragment" data-fragment-index="1" -->
 
-Modéliser avant de coder <!-- .element: class="fragment" data-fragment-index="2" -->
+De bonnes enums et structs résolvent pas mal de problèmes <!-- .element: class="fragment" data-fragment-index="2" -->
 
-De bonnes enums et structs résolvent pas ma de problèmes <!-- .element: class="fragment" data-fragment-index="3" -->
-
-ChatGPT 😎 <!-- .element: class="fragment" data-fragment-index="4" -->
+ChatGPT 😎 <!-- .element: class="fragment" data-fragment-index="3" -->
 
 note:
 
@@ -971,11 +958,10 @@ Asynchrone: [tokio](https://github.com/tokio-rs/tokio)
 - [fasterthanlime - A half-hour to learn Rust](https://fasterthanli.me/articles/a-half-hour-to-learn-rust)
 - [Noboilerplate - Youtube](https://www.youtube.com/c/NoBoilerplate)
 - [Code to the moon - Youtube](https://www.youtube.com/@codetothemoon/videos)
+- [Those slides](https://github.com/Zacaria/havesome-rust)
 
 ---
 
 ### Merci
 
 <img src="imgs/crab2.png" style="height: 30vh">
-
----

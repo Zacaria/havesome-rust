@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "(cd docs && reveal-md Presentation.md -w --css theme/css/custom.css)",
-    "build": "(cd docs && reveal-md Presentation.md --static --css theme/css/custom.css)",
+    "start": "(cd docs && reveal-md Presentation.md -w --css theme/css/night.css,theme/css/custom.css)",
+    "build": "(cd docs && reveal-md Presentation.md --static --css theme/css/night.css,theme/css/custom.css,)",
     "clean": "rimraf docs/_static",
     "deploy": "yarn clean && cd docs && yarn build && ls && yarn copyAssets && yarn surge",
     "copyAssets": "cp -R docs/imgs docs/_static/ && cp -R docs/theme docs/_static",

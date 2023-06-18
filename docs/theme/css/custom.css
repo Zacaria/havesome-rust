@@ -3,8 +3,15 @@
 @import url(cube.css);
 
 .reveal {
+    font-family: "Source Sans Pro";
+}
+
+h1, h2,h3,h4,h5,p, li, blockquote {
     font-size: 30px;
     /* font-family: "Source Sans Pro"; */
+}
+.reveal li {
+    line-height: 1.5em;
 }
 
 .reveal .slides>section {
@@ -12,9 +19,9 @@
 }
 
 .reveal pre {
-    font-size: 0.50em;
+    font-size: 0.40em;
 }
 
-.reveal pre code {
+/* .reveal pre code {
     max-height: 400px;
-}
+} */
