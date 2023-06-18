@@ -21,6 +21,7 @@ https://github.com/Zacaria/havesome-rust
 
 - bas niveau et haut niveau
 - compilateur développé en OCaml puis en Rust
+- release stable toutes les 6 semaines
 - Développé par [Rust Teams & Working Groups](https://www.rust-lang.org/governance/)
 - Soutenu par [Rust Foundation](https://foundation.rust-lang.org/)
 - langage le plus ❤️ depuis 7 ans
@@ -503,7 +504,6 @@ On peut déclarer des méthodes
 
 ----
 
-
 ```rust
 struct FakeCat {
     alive: bool,
@@ -514,8 +514,12 @@ let zombie = FakeCat { alive: false, hungry: true }; // ???
 
 ```
 
->On peut facilement représenter
->des systèmes sans état invalide
+<blockquote class="fragment" data-fragment-index="1">
+On peut facilement représenter
+des systèmes sans état invalide
+</blockquote>
+
+<span class="fragment" data-fragment-index="2">
 
 ```rust
 enum RealCat {
@@ -523,6 +527,7 @@ enum RealCat {
     Dead,
 }
 ```
+</span>
 
 note: 
 
@@ -630,10 +635,9 @@ Au moment de dev, on a peu de connaissance sur les erreurs possibles
 
 => [doc](https://doc.rust-lang.org/std/result/enum.Result.html)
 
-```rust [4|5|6|7|11|12|17|20|]
+```rust [3|4|5|6|10-13|19|22|]
 use std::fs::File;
 use std::io::Read;
-
 fn read_file_contents(path: &str) -> Result<String, std::io::Error> {
     let mut file = match File::open(path) {
         Ok(file) => file,
@@ -641,13 +645,16 @@ fn read_file_contents(path: &str) -> Result<String, std::io::Error> {
     };
 
     let mut contents = String::new();
-    file.read_to_string(&mut contents)?; // Propagate any errors from read_to_string
+    match file.read_to_string(&mut contents) {
+        Err(e) => return Err(e), // Propagate any errors from read_to_string
+        _ => () // void
+    }; 
     Ok(contents)
 }
-
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let path = "example.txt";
-    let contents = read_file_contents(path)?; // Propagate any errors from read_file_contents
+    // Propagate any errors from read_file_contents
+    let contents = read_file_contents(path)?;
 
     println!("File contents:\n{}", contents);
     Ok(())
@@ -656,36 +663,32 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 ```
 ---
 
-### Traits: interfaces en plus flexibles
+### Traits : des interfaces en plus flexibles
 
-- définies n'importe où
-- méthodes par défaut
-- composition de traits
-- peuvent être passé en paramètre
+- définies n'importe où <!-- .element: class="fragment" data-fragment-index="1" -->
+- implémentation par défaut <!-- .element: class="fragment" data-fragment-index="2" -->
+- composition de traits <!-- .element: class="fragment" data-fragment-index="3" -->
+- peuvent être passé en paramètre <!-- .element: class="fragment" data-fragment-index="4" -->
 
 ----
 
-```rust
+```rust [1-3|8-12|23-29|]
 trait Printable {
     fn print(&self);
 }
 
-// Implement Printable for the Person struct
 struct Person {
     name: String,
 }
-
 impl Printable for Person {
     fn print(&self) {
         println!("Name: {}", self.name);
     }
 }
 
-// Implement Printable for the Car struct
 struct Car {
     model: String,
 }
-
 impl Printable for Car {
     fn print(&self) {
         println!("Model: {}", self.model);
@@ -699,21 +702,22 @@ fn main() {
     person.print(); // Output: Name: John
     car.print(); // Output: Model: Tesla
 }
-
 ```
 
 note:
+
+`let car: &dyn Printable = &Car { model: String::from("Tesla") };`
+`let car: Box<dyn Printable> = Box::new(Car { model: String::from("Tesla") });`
 
 
 ---
 
 ### Tests unitaires
 
-```rust
+```rust [5-12|]
 pub fn sum_as_string(a: i32, b: i32) -> String {
     (a + b).to_string()
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -757,13 +761,15 @@ fn test_my_function_integration() {
 
 ---
 
-### Macros
+### Macros : metaprogramming
 
 - Génère du code source qui sera compilé
-- Permet de créer n'importe quelle syntaxe
+- Créer n'importe quelle syntaxe
+- Moins le boilerplate
 
-`println!` : fonction variadique
-`#[cfg(test)]` : compile les tests seulement en conf de test
+<span>`println!` : fonction variadique </span><!-- .element: class="fragment" data-fragment-index="1" -->
+
+<span>`#[cfg(test)]` : compile les tests seulement en conf de test</span> <!-- .element: class="fragment" data-fragment-index="2" -->
 
 note:
 println! est une macro pour:
@@ -773,8 +779,7 @@ println! est une macro pour:
 
 ----
 
-
-```rust
+```rust [1-4|15-18|7-13|]
 #[derive(Debug)]
 struct Cat {
     hungry: bool,
@@ -792,9 +797,50 @@ impl std::fmt::Debug for Cat {
 fn main() {
     let cat = Cat { hungry: true };
     println!("{:#?}", cat); // Cat { hungry: true }
-    println!("{}", cat); // `Cat` cannot be formatted with the default formatter
 }
 ```
+
+note:
+
+Si eux même tous les champs de la struct implémente le tait Debug, alors on peut derive sans action supplémentaire
+
+---
+
+### On n'a pas abordé
+
+Plein de choses dont :
+
+- Smart-pointers
+- Mode unsafe
+- Lifetimes
+- Multi-thread
+
+note:
+
+les traits sont plus flexibles
+- méthodes par défaut
+- composition de traits
+- peuvent être passé en paramètre
+
+lifetime précise la durée de vie des références
+
+smart pointers: types that wrap around a value and provide additional capabilities.
+more flexible memory management, shared ownership, and safe mutation of data.
+
+- Box<T>: heap allocation & automatic deallocation.
+- Rc<T>: reference-counted smart pointer that allows multiple ownership of the same data.
+- Arc<T>: atomic reference-counted smart pointer, similar to Rc<T>, but with thread-safe atomic operations.
+- RefCell<T>: smart pointer that enables interior mutability, allowing mutable access even with immutable references.
+
+---
+
+## Getting Started
+
+cargo: [rustup.rs](https://rustup.rs/)
+
+[rust analyzer](https://rust-analyzer.github.io/)
+
+background rust code checker: [<img src="imgs/bacon.svg" style="background-color:whitesmoke;height: 50px; margin:0">](https://docs.rs/crate/bacon/latest)
 
 ---
 
@@ -832,13 +878,13 @@ Les crates en dépendances ne tirent pas par défaut toutes les fonctionnalités
 Il faut regarder dans leur doc ou Cargo.toml, les fonctionnalités à importer en plus
 ----
 
-### Cargo
+#### Cargo
 
 - `cargo test`
 - `cargo fmt`
 - `cargo check`
-- `cargo package` `cargo publish`
-- `cargo bench`
+- `cargo package`
+- `cargo publish`
 
 ----
 
@@ -866,68 +912,17 @@ executé pendant les tests
 garde les exemples à jour
 seulement pour les modules ou les libs
 
-----
-
-#### Cargo
-
-```rust
-#![feature(test)]
-extern crate test;
-use test::Bencher;
-
-#[bench]
-fn bench_add(b: &mut Bencher) {
-    b.iter(|| 2 + 2)
-}
-```
-
----
-
-### On n'a pas abordé
-
-Plein de choses dont :
-
-- Smart-pointers
-- Multi-thread
-- Mode unsafe
-- Lifetimes 
-
-note:
-
-les traits sont plus flexibles
-- méthodes par défaut
-- composition de traits
-- peuvent être passé en paramètre
-
-lifetime précise la durée de vie des références
-
-smart pointers: types that wrap around a value and provide additional capabilities.
-more flexible memory management, shared ownership, and safe mutation of data.
-
-- Box<T>: heap allocation & automatic deallocation.
-- Rc<T>: reference-counted smart pointer that allows multiple ownership of the same data.
-- Arc<T>: atomic reference-counted smart pointer, similar to Rc<T>, but with thread-safe atomic operations.
-- RefCell<T>: smart pointer that enables interior mutability, allowing mutable access even with immutable references.
-
----
-
-## Getting Started
-
-cargo: [rustup.rs](https://rustup.rs/)
-
-Language Syntax Protocol: [rust analyzer](https://rust-analyzer.github.io/)
-
-background rust code checker: [<img src="imgs/bacon.svg" style="background-color:whitesmoke;height: 50px; margin:0">](https://docs.rs/crate/bacon/latest)
-
 ---
 
 ## Tips
 
 `todo!()` <!-- .element: class="fragment" data-fragment-index="1" -->
 
-modéliser avant de coder <!-- .element: class="fragment" data-fragment-index="2" -->
+Modéliser avant de coder <!-- .element: class="fragment" data-fragment-index="2" -->
 
-ChatGPT 😎 <!-- .element: class="fragment" data-fragment-index="3" -->
+De bonnes enums et structs résolvent pas ma de problèmes <!-- .element: class="fragment" data-fragment-index="3" -->
+
+ChatGPT 😎 <!-- .element: class="fragment" data-fragment-index="4" -->
 
 note:
 
@@ -968,11 +963,12 @@ Asynchrone: [tokio](https://github.com/tokio-rs/tokio)
 
 # Liens
 
-- Rust book
+- [Rust book](https://doc.rust-lang.org/book/)
 - [Rustlings](https://github.com/rust-lang/rustlings)
-- Playground : https://play.rust-lang.org/?version=stable&mode=debug&edition=2021
-- fasterthanlime
-- Noboilerplate
+- [Playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021)
+- [fasterthanlime - A half-hour to learn Rust](https://fasterthanli.me/articles/a-half-hour-to-learn-rust)
+- [Noboilerplate - Youtube](https://www.youtube.com/c/NoBoilerplate)
+- [Code to the moon - Youtube](https://www.youtube.com/@codetothemoon/videos)
 
 ---
 
@@ -980,17 +976,4 @@ Asynchrone: [tokio](https://github.com/tokio-rs/tokio)
 
 <img src="imgs/crab2.png" style="height: 30vh">
 
-
 ---
-
-## Le problème
-
-> Je veux importer du code, du style ou une image dans ma page actuelle <!-- .element: class="fragment" data-fragment-index="1" -->
-
-Cheminement : <!-- .element: class="fragment" data-fragment-index="2" -->
-- rien 🤷‍♂️: des scripts qui se partagent le scope global <!-- .element: class="fragment" data-fragment-index="3" -->
-- (requirejs, browserify) + (grunt/gulp) : mot clé require <!-- .element: class="fragment" data-fragment-index="4" -->
-- webpack : mot clé import <!-- .element: class="fragment" data-fragment-index="5" -->
-
----
-
