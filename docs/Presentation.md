@@ -3,10 +3,10 @@ title: Rust Introduction
 revealOptions:
     transition: 'fade'
 ---
-
-<img src="imgs/rust-logo.png" alt="rust logo" style="height: 250px">
-
 >  Incorporate the expressive syntax and flexibility of a high-level language with the fine control and performance of a low-level language
+
+[<img src="imgs/rust-logo.png" alt="rust logo" class="r-stretch" style="height: 250px">](https://www.rust-lang.org/)
+
 
 <br>
 <br>
@@ -14,6 +14,20 @@ revealOptions:
 ClubMed - Zacaria Chtatar - Juin 2023
 
 https://github.com/Zacaria/havesome-rust
+
+---
+
+### Rust
+
+- bas niveau et haut niveau
+- compilateur développé en OCaml puis en Rust
+- Développé par [Rust Teams & Working Groups](https://www.rust-lang.org/governance/)
+- Soutenu par [Rust Foundation](https://foundation.rust-lang.org/)
+- langage le plus ❤️ depuis 7 ans
+
+note:
+
+ 
 
 ---
 
@@ -57,14 +71,22 @@ https://github.com/Zacaria/havesome-rust
 
 <img src="imgs/discord_rex.png" style="height: 250px"> <!-- .element: class="fragment" data-fragment-index="4" -->
 
+note:
+
+Pas de GC
+Une variable est supprimée dès qu'elle n'a plus d'owner
 
 ----
 
 Linux: [Le Kernel](https://linux.developpez.com/actu/337316/Rust-for-Linux-est-officiellement-fusionne-le-support-initial-de-Rust-for-Linux-fournit-l-infrastructure-de-base-et-une-integration-elementaire/)
 
 - 2/3 des vulnérabilités viennent de la gestion mémoire
+- attirer de jeunes devs
 
 <img src="imgs/linus-logo.webp" style="height: 250px"> <!-- .element: class="fragment" data-fragment-index="4" -->
+
+note:
+Kernel en Assembleur et C
 
 ---
 ## Pourquoi
@@ -88,16 +110,13 @@ sécurité: quantité de bugs possible augmente, et chaque faille ou bug peut co
 
 ---
 
-### A noter 
-
-- forte courbe d'apprentissage (au début)
-
-- developpement plus long
+### À noter 
 
 - temps de compilation
 
 - pas idéal pour un mvp
 
+- plus de devs que de missions
 
 note:
 
@@ -105,15 +124,6 @@ on va survoler quelques features notables du langages
 
 le temps de compilation vient du compilateur qui garantis la sécurité de la memory safety
 
-----
-
-### A noter 2
-
-- plus de devs que de missions
-
-- surtout des dev C experimentés
-
-note:
 peu de missions
 - Juste une question de temps, de plus en plus de projets démarrent en Rust
 
@@ -122,9 +132,15 @@ ce serait facile d'attirer des devs
 surtout des dev C experimentés
 - Plus facile pour eux que pour des devs JS
 
+----
+
+> In other languages simple things are easy and complex things are possible, in Rust simple things are possible and complex things are EASY.
+
+<img src="imgs/learning_curve.jpg" style="height:450px">
+
 ---
 
-## C'est parti
+## Let's go !
 
 https://doc.rust-lang.org/book/
 
@@ -167,9 +183,10 @@ fn plus_one(x: i32) -> i32 {
 ```
 
 note:
+type dans les arguments et retour
+executables: on part d'un main comme en C
+on omet le ; pour retourner une valeur
 
-on part toujours d'une fonction main comme en C
-On omet le ; pour retourner une valeur
 ----
 
 ### if et for
@@ -189,19 +206,18 @@ fn main() {
 }
 ```
 
-
 ----
 
 ### Strings
 
-```rust
+```rust [7|11|15|16|]
 fn print_length(s: &str) { // &str better for function params
     println!("The length of '{}' is {}.", s, s.len());
 }
 
 fn main() {
     // A string literal is a &'static str
-    let hello = "Hello, world!"; // hello: &'static str
+    let hello = "Hello, world!"; // hello: &str
     print_length(hello);
 
     // String::from creates a String from a string literal
@@ -216,11 +232,21 @@ fn main() {
 ```
 
 note:
+le type à l'assignation peut être inféré
 
-String permet les mutations et l'ownership, parfait pour retourner des strings.
+&str est immutable, vit dans la stack
+
+String est mutable via des méthode, vit dans la heap
+
+changer une string: on doit déclarer la variable mutable avec `mut`
+
 &str est immutable, mieux pour les param de fonction : on peut prendre un slice d'une string sans en prendre l'ownership. Permet de passer String et literals.
 
+String permet les mutations et l'ownership, parfait pour retourner des strings.
+
 mut: toutes les assignations immutables par défaut. Même en profondeur dans les objets.
+
+toutes les strings sont utf8 par défaut
 
 ---
 
@@ -229,6 +255,13 @@ mut: toutes les assignations immutables par défaut. Même en profondeur dans le
 - Un seul propriétaire de la donnée
 
 - Plusieurs lecteur ou un seul éditeur
+
+- Mémoire libérée dès que le propriétaire est hors scope
+
+note:
+pas de pause
+pas de GC
+pas de référence vers rien
 
 ----
 
@@ -345,7 +378,11 @@ fn main() {
 
 ---
 
-## Tuples
+## Structures de données
+
+----
+
+### Tuples
 
 ```rust
 fn main() {
@@ -359,9 +396,11 @@ fn main() {
 
 note: 
 On groupe des données qu'on peut destructurer
-On utilise parfois le tuple vide pour une fonction qui ne retourne rien
+On utilise le tuple vide pour représenter le type void
 
----
+----
+
+### Enums & Structs
 
 ```rust
 enum Sign {
@@ -373,11 +412,31 @@ struct Number {
     value: u32,
 }
 
-// On peut les initialiser en literal:
+// On peut les initialiser en literal
 let x = Number { sign: Sign::PLUS, value: 2 };
 let y = Number { value: 3, sign: Sign::MINUS };
 let z = Number { value: 5, ..y };
 // l'ordre des propriétés n'est pas important
+```
+
+note:
+
+```rust
+impl Number {
+    fn new(value: u32, positive: bool) -> Self {
+        let sign = if positive {
+            Sign::PLUS
+        } else {
+            Sign::MINUS
+        };
+        Number { sign, value }
+    }
+}
+
+fn main() {
+    let num = Number::new(10, true);
+}
+
 ```
 
 ----
@@ -446,6 +505,8 @@ Dans les autres langages il faudrait implémenter des getters, setters et autres
 
 <span>`null` ? </span><!-- .element: class="fragment" data-fragment-index="2" -->
 
+Traiter ces cas reste optionnel<!-- .element: class="fragment" data-fragment-index="3" -->
+
 note:
 
 tester null en js
@@ -491,9 +552,7 @@ fn main() {
 }
 ```
 
-
 note:
-
 
 - Le compilateur s'assure qu'on couvre tous les cas !
 - explicite
@@ -506,7 +565,9 @@ unwrap_or ajoute une condition logique
 ---
 
 
-### Result
+### Les erreurs
+
+<span class="fragment" data-fragment-index="1">
 
 ```js
 function fetchFile (file) {
@@ -518,6 +579,11 @@ function fetchFile (file) {
 }
 
 ```
+</span>
+
+- rien ne dit que readFileSync peut renvoyer une erreur <!-- .element: class="fragment" data-fragment-index="2" -->
+- ni le type d'erreur renvoyé <!-- .element: class="fragment" data-fragment-index="3" -->
+- on découvre les erreurs à l'execution <!-- .element: class="fragment" data-fragment-index="4" -->
 
 note:
 
@@ -525,16 +591,274 @@ Rien ne dit que la fonction peut renvoyer une erreur.
 Et que l'appelenat doit la gérer
 On aurait carrément pu ne pas mettre de try catch
 
+Au moment de dev, on a peu de connaissance sur les erreurs possibles
+
+----
+### Result
+
+=> [doc](https://doc.rust-lang.org/std/result/enum.Result.html)
+
+```rust [4|5|6|7|11|12|17|20|]
+use std::fs::File;
+use std::io::Read;
+
+fn read_file_contents(path: &str) -> Result<String, std::io::Error> {
+    let mut file = match File::open(path) {
+        Ok(file) => file,
+        Err(e) => return Err(e),
+    };
+
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?; // Propagate any errors from read_to_string
+    Ok(contents)
+}
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let path = "example.txt";
+    let contents = read_file_contents(path)?; // Propagate any errors from read_file_contents
+
+    println!("File contents:\n{}", contents);
+    Ok(())
+}
+
+```
+---
+
+### Traits: interfaces en plus flexibles
+
+- définies n'importe où
+- méthodes par défaut
+- composition de traits
+- peuvent être passé en paramètre
+
+----
+
+```rust
+trait Printable {
+    fn print(&self);
+}
+
+// Implement Printable for the Person struct
+struct Person {
+    name: String,
+}
+
+impl Printable for Person {
+    fn print(&self) {
+        println!("Name: {}", self.name);
+    }
+}
+
+// Implement Printable for the Car struct
+struct Car {
+    model: String,
+}
+
+impl Printable for Car {
+    fn print(&self) {
+        println!("Model: {}", self.model);
+    }
+}
+
+fn main() {
+    let person = Person { name: String::from("John") };
+    let car = Car { model: String::from("Tesla") };
+
+    person.print(); // Output: Name: John
+    car.print(); // Output: Model: Tesla
+}
+
+```
+
+note:
+
+
+---
+
+### Tests unitaires
+
+```rust
+pub fn sum_as_string(a: i32, b: i32) -> String {
+    (a + b).to_string()
+}
+
+
+#[cfg(test)]
+mod tests {
+    use crate::*;
+    #[test]
+    fn test_sum_as_string() {
+        assert_eq!(sum_as_string(1,2), "3");
+    }
+}
+```
+
+note:
+
+TUs dans le même fichier que le code
+
+----
+
+### Tests d'integration
+
+```csharp
+.
+├── Cargo.lock
+├── Cargo.toml
+├── src
+│   └── lib.rs
+└── tests
+    └── integration_test.rs
+
+```
+
+```rust
+// integration_test.rs
+use my_crate::my_function;
+
+#[test]
+fn test_my_function_integration() {
+    // Test the function under some scenario
+    assert_eq!(my_function("test input"), "expected output");
+}
+```
+
+---
+
+### Macros
+
+- Génère du code source qui sera compilé
+- Permet de créer n'importe quelle syntaxe
+
+`println!` : fonction variadique
+`#[cfg(test)]` : compile les tests seulement en conf de test
+
+note:
+println! est une macro pour:
+- avoir un nombre variable d'arguments
+- string interpolation
+- checks à la compilation que le nombre d'arg == le nb de {}
+
+----
+
+
+```rust
+#[derive(Debug)]
+struct Cat {
+    hungry: bool,
+}
+
+// The Rust compiler generates code that looks like this...
+impl std::fmt::Debug for Cat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Cat")
+            .field("hungry", &self.hungry)
+            .finish()
+    }
+}
+
+fn main() {
+    let cat = Cat { hungry: true };
+    println!("{:#?}", cat); // Cat { hungry: true }
+    println!("{}", cat); // `Cat` cannot be formatted with the default formatter
+}
+```
+
+---
+
+### Cargo
+
+```sh
+cargo new my_project
+
+# compile and execute
+cd my_project
+cargo run
+
+# compile
+cargo build
+
+# compiler for production
+cargo build --release
+```
+
+```toml
+# Cargo.toml
+[package]
+name = "my_project"
+version = "0.1.0"
+authors = ["Name <your.email@example.com>"]
+edition = "2021"
+
+[dependencies]
+serde = version="1.0.132"
+uuid = { version = "0.8", features = ["v4"] }
+```
+
+note:
+Les crates en dépendances ne tirent pas par défaut toutes les fonctionnalités
+Il faut regarder dans leur doc ou Cargo.toml, les fonctionnalités à importer en plus
+----
+
+### Cargo
+
+- `cargo test`
+- `cargo fmt`
+- `cargo check`
+- `cargo package` `cargo publish`
+- `cargo bench`
+
+----
+
+#### Cargo
+
+```rust
+/// Formats the sum of two numbers as a string.
+///
+/// # Examples
+///
+/// ```
+/// let result = mycrate::sum_as_string(5, 10);
+/// assert_eq!(result, "15");
+/// ```
+pub fn sum_as_string(a: i32, b: i32) -> String { (a + b).to_string() }
+```
+
+`cargo doc --open`
+
+note:
+
+exemple d'un doc test.
+coverage
+executé pendant les tests
+garde les exemples à jour
+seulement pour les modules ou les libs
+
+----
+
+#### Cargo
+
+```rust
+#![feature(test)]
+extern crate test;
+use test::Bencher;
+
+#[bench]
+fn bench_add(b: &mut Bencher) {
+    b.iter(|| 2 + 2)
+}
+```
+
 ---
 
 ### On n'a pas abordé
 
 Plein de choses dont :
 
-- Traits: interfaces en plus flexibles <!-- .element: class="fragment" data-fragment-index="1" -->
-- Macros: metaprogramming <!-- .element: class="fragment" data-fragment-index="2" -->
-
-- Mode unsafe: t'inquiète je gère  <!-- .element: class="fragment" data-fragment-index="3" -->
+- Smart-pointers
+- Multi-thread
+- Mode unsafe
+- Lifetimes 
 
 note:
 
@@ -543,42 +867,35 @@ les traits sont plus flexibles
 - composition de traits
 - peuvent être passé en paramètre
 
+lifetime précise la durée de vie des références
+
+smart pointers: types that wrap around a value and provide additional capabilities.
+more flexible memory management, shared ownership, and safe mutation of data.
+
+- Box<T>: heap allocation & automatic deallocation.
+- Rc<T>: reference-counted smart pointer that allows multiple ownership of the same data.
+- Arc<T>: atomic reference-counted smart pointer, similar to Rc<T>, but with thread-safe atomic operations.
+- RefCell<T>: smart pointer that enables interior mutability, allowing mutable access even with immutable references.
+
 ---
 
 ## Getting Started
 
-[rustup.rs](https://rustup.rs/)
+cargo: [rustup.rs](https://rustup.rs/)
 
-[LSP]: rust analyzer
+Language Syntax Protocol: [rust analyzer](https://rust-analyzer.github.io/)
 
-[bacon](https://docs.rs/crate/bacon/latest)
-
----
-
-## Ouvrir un projet
-
-note:
-
-cargo init
-expliquer le cargo.toml et les features [serde](https://github.com/serde-rs/serde/blob/master/serde/Cargo.toml)
-
-tests
-macros
-messages d'erreur
+background rust code checker: [<img src="imgs/bacon.svg" style="background-color:whitesmoke;height: 50px; margin:0">](https://docs.rs/crate/bacon/latest)
 
 ---
 
 ## Tips
 
-`println!("obj = {:?}", obj);`
+`todo!()` <!-- .element: class="fragment" data-fragment-index="1" -->
 
-`expect("reason")` au lieu de `unwrap()`
+modéliser avant de coder <!-- .element: class="fragment" data-fragment-index="2" -->
 
-`todo!()`
-
-modéliser avant de coder
-
-ChatGPT 😎
+ChatGPT 😎 <!-- .element: class="fragment" data-fragment-index="3" -->
 
 note:
 
@@ -645,4 +962,3 @@ Cheminement : <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ---
 
-## 
