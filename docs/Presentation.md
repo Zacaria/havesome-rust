@@ -18,11 +18,12 @@ https://havesome-rust.surge.sh
 
 - compilé sans GC <!-- .element: class="fragment" data-fragment-index="1" -->
 - bas niveau et haut niveau <!-- .element: class="fragment" data-fragment-index="2" -->
-- compilateur développé en OCaml puis en Rust <!-- .element: class="fragment" data-fragment-index="3" -->
-- release stable toutes les 6 semaines <!-- .element: class="fragment" data-fragment-index="4" -->
-<li class="fragment" data-fragment-index="5"> Développé par <a href="https://www.rust-lang.org/governance/">Rust Teams & Working Groups</a></li>
-<li class="fragment" data-fragment-index="6">Soutenu par <a href="https://foundation.rust-lang.org/">Rust Foundation</a></li>
-- langage le plus ❤️ depuis 7 ans <!-- .element: class="fragment" data-fragment-index="7" -->
+- focus perfs et sécurité  <!-- .element: class="fragment" data-fragment-index="3" -->
+- compilateur développé en OCaml puis en Rust <!-- .element: class="fragment" data-fragment-index="4" -->
+- release stable toutes les 6 semaines <!-- .element: class="fragment" data-fragment-index="5" -->
+<li class="fragment" data-fragment-index="6"> Développé par <a href="https://www.rust-lang.org/governance/">Rust Teams & Working Groups</a></li>
+<li class="fragment" data-fragment-index="7">Soutenu par <a href="https://foundation.rust-lang.org/">Rust Foundation</a></li>
+- langage le plus ❤️ depuis 7 ans <!-- .element: class="fragment" data-fragment-index="8" -->
 
 note:
 
@@ -925,7 +926,7 @@ HTTP: [reqwest](https://github.com/seanmonstar/reqwest)
 
 Backend: [axum](https://github.com/tokio-rs/axum), [actix](https://github.com/actix/actix-web)
 
-Front: [yew](https://github.com/yewstack/yew)
+Front (WebAssembly): [yew](https://github.com/yewstack/yew)
 
 Fullstack: [Leptos](https://github.com/leptos-rs/leptos)
 
