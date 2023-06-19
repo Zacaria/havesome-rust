@@ -137,10 +137,6 @@ ce serait facile d'attirer des devs
 
 ## Let's go !
 
-https://doc.rust-lang.org/book/
-
-https://doc.rust-lang.org/stable/rust-by-example/
-
 note:
 
 Je vais essayer de résumer quelques features afin d'arriver à ce qui donne vraiment de l'intérêt à Rust
@@ -954,6 +950,7 @@ Asynchrone: [tokio](https://github.com/tokio-rs/tokio)
 # Liens
 
 - [Rust book](https://doc.rust-lang.org/book/)
+- [Rust by example](https://doc.rust-lang.org/stable/rust-by-example/)
 - [Rustlings](https://github.com/rust-lang/rustlings)
 - [Playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021)
 - [fasterthanlime - A half-hour to learn Rust](https://fasterthanli.me/articles/a-half-hour-to-learn-rust)
