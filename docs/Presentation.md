@@ -33,7 +33,7 @@ note:
 
 ----
 
-### Github: [Index de recherche de code](https://github.blog/2023-02-06-the-technology-behind-githubs-new-code-search/)
+#### Github: [Index de recherche de code](https://github.blog/2023-02-06-the-technology-behind-githubs-new-code-search/)
 
 <img src="imgs/github.png" style="background-color: whitesmoke; height: 150px">
 
@@ -45,11 +45,11 @@ note:
 
 ----
 
-### Clouflare: [HTTP proxy](https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/)
+#### Clouflare: [HTTP proxy](https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/)
 
 <img src="imgs/cloudflare-logo.png" style="background-color: whitesmoke; height: 150px">
 
-- nginx plus assez rapide 🤯 <!-- .element: class="fragment" data-fragment-index="1" -->
+- nginx pas assez rapide 🤯 <!-- .element: class="fragment" data-fragment-index="1" -->
 - customisation en C difficile <!-- .element: class="fragment" data-fragment-index="2" -->
 - archi qui permet de partager les connexions entre les threads <!-- .element: class="fragment" data-fragment-index="3" -->
 
